@@ -45,7 +45,6 @@ public class TemplateController {
         outputStream.close();
         inputStream.close();
 
-
         pdfTemplateByteStream.delete();
     }
 }
