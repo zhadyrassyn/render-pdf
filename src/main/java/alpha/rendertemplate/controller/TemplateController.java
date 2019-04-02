@@ -1,6 +1,7 @@
 package alpha.rendertemplate.controller;
 
 import alpha.rendertemplate.service.TemplateService;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -9,8 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.OutputStream;
 
 @RestController
 @RequestMapping("/api")
@@ -28,17 +31,21 @@ public class TemplateController {
     }
 
     @GetMapping(value = "/template", produces = MediaType.APPLICATION_PDF_VALUE)
-    public ResponseEntity getPdfTemplate() throws Exception {
+    public void getPdfTemplate(HttpServletResponse response) throws Exception {
 
         File pdfTemplateByteStream = templateService.getPdfTemplate();
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "attachment; filename=report.pdf");
+        response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+        response.setHeader("Content-Disposition", "attachment; filename=report.pdf");
 
-        return ResponseEntity
-                .ok()
-                .headers(headers)
-                .contentType(MediaType.APPLICATION_PDF)
-                .body(new InputStreamResource(new FileInputStream(pdfTemplateByteStream)));
+        OutputStream outputStream = response.getOutputStream();
+        FileInputStream inputStream =new FileInputStream(pdfTemplateByteStream);
+
+        IOUtils.copy(inputStream, outputStream);
+        outputStream.close();
+        inputStream.close();
+
+
+        pdfTemplateByteStream.delete();
     }
 }

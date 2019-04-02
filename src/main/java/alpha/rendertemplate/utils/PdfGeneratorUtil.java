@@ -21,7 +21,6 @@ public class PdfGeneratorUtil {
             renderer.createPDF(os, false);
             renderer.finishPDF();
 
-            System.out.println("PDF " + fileName + " generated!");
             return outputFile;
         }
     }
