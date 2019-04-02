@@ -24,8 +24,7 @@ public class TemplateServiceImpl implements TemplateService {
     @Override
     public String getHtmlTemplate() {
         Map<String, String> map = new HashMap<>();
-        map.put("name", "Yerbol");
-
+//        map.put("name", "Yerbol");
         return htmlGeneratorUtil.generateHtml(map);
     }
 

@@ -30,7 +30,7 @@ public class TemplateController {
         return templateService.getHtmlTemplate();
     }
 
-    @GetMapping(value = "/template", produces = MediaType.APPLICATION_PDF_VALUE)
+    @GetMapping(value = "/template/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
     public void getPdfTemplate(HttpServletResponse response) throws Exception {
 
         File pdfTemplateByteStream = templateService.getPdfTemplate();
@@ -39,7 +39,7 @@ public class TemplateController {
         response.setHeader("Content-Disposition", "attachment; filename=report.pdf");
 
         OutputStream outputStream = response.getOutputStream();
-        FileInputStream inputStream =new FileInputStream(pdfTemplateByteStream);
+        FileInputStream inputStream = new FileInputStream(pdfTemplateByteStream);
 
         IOUtils.copy(inputStream, outputStream);
         outputStream.close();
