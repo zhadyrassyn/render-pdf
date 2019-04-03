@@ -25,11 +25,22 @@ public class TemplateServiceImpl implements TemplateService {
     public String getHtmlTemplate() {
         Map<String, String> map = new HashMap<>();
 //        map.put("name", "Yerbol");
-        return htmlGeneratorUtil.generateHtml(map);
+        return htmlGeneratorUtil.generateHtml("mytemplate", map);
     }
 
     @Override
     public File getPdfTemplate() throws Exception {
         return pdfGeneratorUtil.generatePdf(getHtmlTemplate());
+    }
+
+    @Override
+    public String getHtmlTemplate2() {
+        Map<String, String> map = new HashMap<>();
+        return htmlGeneratorUtil.generateHtml("mytemplate2", map);
+    }
+
+    @Override
+    public File getPdfTemplate2() throws Exception {
+        return pdfGeneratorUtil.generatePdf(getHtmlTemplate2());
     }
 }

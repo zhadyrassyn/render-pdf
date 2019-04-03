@@ -14,12 +14,12 @@ public class HtmlGeneratorUtil {
         this.templateEngine = templateEngine;
     }
 
-    public String generateHtml(Map<String, String> map) {
+    public String generateHtml(String templateName, Map<String, String> map) {
         Context context = new Context();
         if (map != null) {
             map.forEach(context::setVariable);
         }
 
-        return templateEngine.process("mytemplate", context);
+        return templateEngine.process(templateName, context);
     }
 }

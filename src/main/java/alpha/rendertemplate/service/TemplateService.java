@@ -3,7 +3,11 @@ package alpha.rendertemplate.service;
 import java.io.File;
 
 public interface TemplateService {
-    public String getHtmlTemplate();
+    String getHtmlTemplate();
 
-    public File getPdfTemplate() throws Exception;
+    File getPdfTemplate() throws Exception;
+
+    String getHtmlTemplate2();
+
+    File getPdfTemplate2() throws Exception;
 }
